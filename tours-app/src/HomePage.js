@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './indexStyle.css';
 import './style.css';
 import plane from "./img/nils-nedel-ONpGBpns3cs-unsplash.jpg" 
-import { Card, Button } from 'react-bootstrap';//import React Component
+import timePhoto from "./img/erik-odiin-jbQvJx2EWnU-unsplash.jpg";
+
+import { Card, Button, Jumbotron, Container } from 'react-bootstrap';//import React Component
 
 export class HomePage extends Component{
     render(){
@@ -29,10 +31,15 @@ export class HomePage extends Component{
 export class HomePicture extends Component{
     render() {
         return(
-            <div className="introImage" id="mainIntro">
-                <div className="title">
-                    <h1>Where's Your Next Trip?</h1>
-                </div>
+            <div id="mainIntro">
+                <Jumbotron fluid>
+                    <img className = "introImage" src = {timePhoto}></img>
+                    <Container>
+                        <div>
+                            <h1>Where's Your Next Trip?</h1>
+                        </div>
+                    </Container>
+                </Jumbotron>
             </div>
         )
     }
@@ -50,8 +57,7 @@ export class NavBar extends Component{
             <nav>
                 <ul>
                     <li><a aria-label="Back to Home Page" href="./index.html">Home</a></li>
-                    <li><a onclick="toggleModal()" className="newTrip" aria-label="Plan a new trip" href="#">New Trip</a></li>
-                    <li><a aria-label="Look at previous trips" href="#prevTrip">Previous Trips</a></li>
+                    <li><a className="newTrip" aria-label="Plan a new trip" href="#">New Trip</a></li>
                     <li><a aria-label="Learn about us" href="./About_Us.html">About Us</a></li>
                 </ul>
             </nav>
