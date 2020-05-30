@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import './indexStyle.css';
 import './style.css';
+import NewTrip, { ToggleForm } from './newTrip.js'
 import plane from "./img/nils-nedel-ONpGBpns3cs-unsplash.jpg" 
 import timePhoto from "./img/erik-odiin-jbQvJx2EWnU-unsplash.jpg";
 
 import { Card, Button, Jumbotron, Container } from 'react-bootstrap';//import React Component
 
 export class HomePage extends Component{
+    constructor(props) {
+        super(props)
+        this.state = {modalHidden: false}
+    }
+    
     render(){
         return(
         <div>
@@ -15,11 +21,11 @@ export class HomePage extends Component{
             </div>
 
             <div>
-                <NavBar />
+                <NavBar state = {this.state.modalHidden} check = {this.check} />
             </div>
 
             <div>
-                <NewTrip />
+                <NewTrip state = {this.props.check} />
             </div>
 
         </div>    
@@ -33,7 +39,7 @@ export class HomePicture extends Component{
         return(
             <div id="mainIntro">
                 <Jumbotron fluid>
-                    <img className = "introImage" src = {timePhoto}></img>
+                    
                     <Container>
                         <div>
                             <h1>Where's Your Next Trip?</h1>
@@ -47,6 +53,13 @@ export class HomePicture extends Component{
 
 
 export class NavBar extends Component{
+
+
+    check = () => {
+        this.setState({modalHidden: true})
+        console.log("CHECK")
+    }
+
     render(){
         return(
         <div className="navBar">
@@ -57,7 +70,7 @@ export class NavBar extends Component{
             <nav>
                 <ul>
                     <li><a aria-label="Back to Home Page" href="./index.html">Home</a></li>
-                    <li><a className="newTrip" aria-label="Plan a new trip" href="#">New Trip</a></li>
+                    <li><a onClick={this.check} className="newTrip" aria-label="Plan a new trip" href="#">New Trip</a></li>
                     <li><a aria-label="Learn about us" href="./About_Us.html">About Us</a></li>
                 </ul>
             </nav>
@@ -66,7 +79,12 @@ export class NavBar extends Component{
     }
 }
 
-export class NewTrip extends Component{
+
+
+
+
+
+export class tripCard extends Component{
     render(){
         return(
     <div>
