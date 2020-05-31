@@ -5,7 +5,7 @@ import {
 import './indexStyle.css';
 import './style.css';
 
-export class sightseeingCards extends Component {
+class sightseeingCards extends Component {
     render() {
         
         let event = this.props.event;
