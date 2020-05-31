@@ -280,6 +280,7 @@ cite a{
 }
 
 .modal {
+    display: none;
     position: fixed;
     top: 0;
     height: 100%;
@@ -292,6 +293,7 @@ cite a{
 
 .modal-hidden {
     display: none;
+    
 }
 
 .close_bar {
