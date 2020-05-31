@@ -2,7 +2,7 @@ import React, { Component } from 'react'; //import React Component
 import './indexStyle.css';
 import './style.css';
 
-export class countryFilter extends Component {
+class CountryFilter extends Component {
     render() {
         return (
         <div class="dropdown">
@@ -24,4 +24,4 @@ export class countryFilter extends Component {
     }
 }
 
-export default countryFilter;
+export default CountryFilter;
