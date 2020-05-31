@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './indexStyle.css';
 import './style.css';
+import './sightseeingCards.js'
 
 class Sightseeing extends Component {
 
@@ -11,5 +12,8 @@ class Sightseeing extends Component {
         sortOrder: 'default',
         filter: 'default',
       }
+      fetch(Json)
+        .then(response => response.json())
+        .then(data => <sightseeingCards event = {data} /> )
     }
 }
