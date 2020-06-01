@@ -4,11 +4,10 @@ import { NewDayPlan } from "./newDayPlan.js";
 import "./indexStyle.css";
 import "./style.css";
 import {
-  Route,
   Switch,
   NavLink,
-  BrowserRouter as Router,
-} from "react-router-dom";
+  BrowserRouter as Router, Route
+} from 'react-router-dom';
 import AboutUs from "./about-us";
 import { Nav } from "react-bootstrap";
 import Json from './Json.js';

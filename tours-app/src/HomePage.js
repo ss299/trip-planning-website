@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./indexStyle.css";
 import "./style.css";
 import NewTrip, { ToggleForm } from "./newTrip.js";
+import BestSightseeing, { ToggleForm } from "./Sightseeing.js";
 import plane from "./img/nils-nedel-ONpGBpns3cs-unsplash.jpg";
 import timePhoto from "./img/erik-odiin-jbQvJx2EWnU-unsplash.jpg";
 
@@ -103,6 +104,24 @@ export class tripCard extends Component {
       </div>
     );
   }
+}
+
+export class BestSightseeing extends Component {
+    render() {
+        return (
+  
+            <div className='cardGroup' id='sizing'>
+                <Card style={{ width: "18rem" }}>
+                <Card.Img variant='top' src="img/bali.jpg" />
+                <Card.Body>
+                <Link to='/sightseeing'> 
+                    <Button variant='primary'>Best Sightseeing</Button>
+                </Link> 
+                </Card.Body>
+                </Card>
+            </div>
+        )
+    }
 }
 
 export default HomePage;
