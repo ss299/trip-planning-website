@@ -7,37 +7,51 @@ export default class CreateCards extends Component {
   constructor(props) {
     super(props);
     this.state = { change: [] };
+    this.count = 0;
   }
-  create = (makeCard) => {
-    makeCard = (
-      <div>
-        <Card border='dark' style={{ width: "18rem" }}>
-          <Card.Header>Header</Card.Header>
-          <Card.Body>
-            <Card.Title>Dark Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </div>
-    );
-    let update = this.state.change;
+
+  createCards = () => {
+    console.log("check");
+
     this.setState(() => {
-      return update.push(makeCard);
+      this.state.change.push(this.count++);
+      //console.log(this.state.change);
     });
 
-    console.log(this.state.change);
-    return makeCard;
+    let maps = <h1>No Days Planned Yet</h1>;
+
+    if (this.props.state.change != undefined) {
+      maps = this.props.state.change.map((card) => {
+        let get = <SingleCard id={card} state={this.state.change} />;
+        console.log(get.length);
+      });
+    }
+    return maps;
   };
 
   render() {
-    console.log(this.state.change);
-    let update = this.state.change.map((makeCard) => {
-      return this.create(makeCard);
-    });
+    return this.createCards();
+  }
+}
 
-    return <div>{update}</div>;
+export class SingleCard extends Component {
+  render() {
+    return (
+      <Card
+        className='tourCard'
+        id={this.props.id}
+        border='dark'
+        style={{ width: "18rem" }}
+      >
+        <Card.Header>Header</Card.Header>
+        <Card.Body>
+          <Card.Title>Dark Card Title</Card.Title>
+          <Card.Text>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    );
   }
 }

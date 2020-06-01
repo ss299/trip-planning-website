@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./indexStyle.css";
 import "./style.css";
-import { Card, Button, Jumbotron, Container } from "react-bootstrap"; //import React Component
+import { Card, Button, Jumbotron, Container, CardGroup } from "react-bootstrap"; //import React Component
 import CreateCards from "./dayCards.js";
 
 export class NewDayPlan extends Component {
@@ -13,7 +13,7 @@ export class NewDayPlan extends Component {
       friendly: "",
       transporation: "",
       notes: "",
-      location: [],
+      final: [],
     };
   }
 
@@ -26,11 +26,19 @@ export class NewDayPlan extends Component {
     });
   };
 
+  finishedState = () => {
+    this.setState((prevState) => ({
+      final: [...prevState.final, { name: this.state }],
+    }));
+    console.log(this.state.final);
+  };
+
   render() {
     return (
       <NewDayPlanForm
         stateOfDay={this.state}
         handleChange={this.handleChange}
+        finishedState={this.finishedState}
       />
     );
   }
@@ -39,7 +47,8 @@ export class NewDayPlan extends Component {
 export class NewDayPlanForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { location: [], showCard: false };
+    this.state = { location: [], showCard: [], finallocation: [] };
+    this.counter = -1;
   }
 
   respondDayChange = (name, event) => {
@@ -58,35 +67,100 @@ export class NewDayPlanForm extends Component {
     console.log("tempArray: " + this.state.location);
   };
 
+  //the final submit button is hit and cards render
   getDayInfo = (event) => {
     event.preventDefault();
-    console.log("aaaa" + this.state.showCard);
+    this.counter++;
+    this.setState(() => {
+      return this.state.showCard.push(this.counter);
+    });
 
-    return this.setState({ showCard: true });
+    this.props.finishedState();
+    this.setFinalLocation();
+    this.resetArray();
+    //console.log("save test" + this.props.stateOfDay.final.budget);
+  };
+
+  resetArray() {
+    return this.setState({ location: [] });
+
+    console.log(this.state.location);
+  }
+
+  setFinalLocation = () => {
+    let final = this.setState((prevState) => ({
+      finallocation: [
+        ...prevState.finallocation,
+        { finalLoc: this.state.location },
+      ],
+    }));
+    return final;
   };
 
   render() {
+    let newTask = this.state.showCard.map((card) => {
+      let newTour = (
+        <div className='d-flex flex-wrap'>
+          <Card
+            className='tourCard'
+            id={card}
+            border='dark'
+            style={{ width: "18rem" }}
+          >
+            <Card.Header>{"Day" + (card + 1)}</Card.Header>
+            <Card.Body>
+              <Card.Title>
+                {"Budget for the Day $" +
+                  this.props.stateOfDay.final[card].name.budget}
+              </Card.Title>
+
+              <Card.Title>
+                {"Kid-Friendly: " +
+                  this.props.stateOfDay.final[card].name.friendly}
+              </Card.Title>
+
+              <Card.Title>
+                {"Transportation: " +
+                  this.props.stateOfDay.final[card].name.transporation}
+              </Card.Title>
+
+              <Card.Title>{"Extra Notes: "}</Card.Title>
+              <Card.Text>
+                {this.props.stateOfDay.final[card].name.notes}
+              </Card.Text>
+
+              <Card.Title>{"Places to Visit: "}</Card.Title>
+              <Card.Text>
+                {this.state.finallocation[card].finalLoc.map((text) => {
+                  return <p>{text}</p>;
+                })}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+      );
+      return newTour;
+    });
+
     let updatedTasks = this.state.location.map((location) => {
       let here = <option>{location}</option>;
       return here;
     });
 
     return (
-      <div className='container' id='overallCard'>
-        <div>
-          <CreateCards
-            state={this.state}
-            dayInfo={this.props.stateOfDay}
-            showCard={this.getDayInfo}
-          />
+      <div>
+        <div className='d-flex flex-wrap'>
+          <CardGroup>{newTask}</CardGroup>
         </div>
 
         <div className='newDayPlan'>
-          <div className='container'>
-            <div className='closeBarNewDay'>
-              <span>X</span>
-            </div>
-            <form name='firstForm' onsubmit='return false' novalidate>
+          <div>
+            <form
+              className='tourForm'
+              name='firstForm'
+              onsubmit='return false'
+              novalidate
+            >
               <div className='form-group'>
                 <label>Places to visit</label>
                 <div>
