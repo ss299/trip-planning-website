@@ -124,4 +124,20 @@ export class BestSightseeing extends Component {
     }
 }
 
-export default HomePage;
+export class BestSightSeeing extends Component{
+    render(){
+        return(
+
+            <div className = 'cardGroup' id="sizing">
+                <Card style={{ width: '18rem' }}>
+                    <Card.Img variant="top" src="img/bali.jpg" />
+                    <Card.Body>
+                        <Button variant="primary">Best Sightseeing</Button>
+                    </Card.Body>
+                </Card>
+            </div>
+        )
+    }
+}
+
+ export default HomePage;
