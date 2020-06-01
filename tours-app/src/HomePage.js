@@ -8,6 +8,7 @@ import timePhoto from "./img/erik-odiin-jbQvJx2EWnU-unsplash.jpg";
 
 import { Card, Button, Jumbotron, Container } from "react-bootstrap"; //import React Component
 import { Link } from "react-router-dom";
+import hamburgerMenu from "./img/menu-icon.png";
 
 export class HomePage extends Component {
   constructor(props) {
@@ -62,19 +63,23 @@ export class NavBar extends Component {
       <div className='navBar'>
         <HomePicture />
         <div className='hamburgerMenu'>
-          <img className='resize' src='img/menu-icon.png' alt='Menu icon' />
+          <img className='resize' src={hamburgerMenu} alt='Menu icon' />
         </div>
 
         <nav>
           <ul>
-            <li>
+            <li className='uni'>
               <Link to='/home'>Home</Link>
             </li>
-            <li>
+            <li className='uni'>
               <Link to='/newDayPlan'>New Trip</Link>
             </li>
-            <li>
+            <li className='uni'>
               <Link to='/aboutUs'>About Us</Link>
+            </li>
+
+            <li className='uni'>
+              <Link to='/sightseeing'>Sightseeing</Link>
             </li>
           </ul>
         </nav>
@@ -107,37 +112,35 @@ export class tripCard extends Component {
 }
 
 export class BestSightseeing extends Component {
-    render() {
-        return (
-  
-            <div className='cardGroup' id='sizing'>
-                <Card style={{ width: "18rem" }}>
-                <Card.Img variant='top' src="img/bali.jpg" />
-                <Card.Body>
-                <Link to='/sightseeing'> 
-                    <Button variant='primary'>Best Sightseeing</Button>
-                </Link> 
-                </Card.Body>
-                </Card>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className='cardGroup' id='sizing'>
+        <Card style={{ width: "18rem" }}>
+          <Card.Img variant='top' src='img/bali.jpg' />
+          <Card.Body>
+            <Link to='/sightseeing'>
+              <Button variant='primary'>Best Sightseeing</Button>
+            </Link>
+          </Card.Body>
+        </Card>
+      </div>
+    );
+  }
 }
 
-export class BestSightSeeing extends Component{
-    render(){
-        return(
-
-            <div className = 'cardGroup' id="sizing">
-                <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="img/bali.jpg" />
-                    <Card.Body>
-                        <Button variant="primary">Best Sightseeing</Button>
-                    </Card.Body>
-                </Card>
-            </div>
-        )
-    }
+export class BestSightSeeing extends Component {
+  render() {
+    return (
+      <div className='cardGroup' id='sizing'>
+        <Card style={{ width: "18rem" }}>
+          <Card.Img variant='top' src='img/bali.jpg' />
+          <Card.Body>
+            <Button variant='primary'>Best Sightseeing</Button>
+          </Card.Body>
+        </Card>
+      </div>
+    );
+  }
 }
 
- export default HomePage;
+export default HomePage;

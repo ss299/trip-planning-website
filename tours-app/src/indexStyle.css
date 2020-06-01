@@ -72,11 +72,6 @@ ul {
   text-align: center;
 }
 
-a:hover {
-  color: #b7a57a;
-  border-bottom: 0.6rem solid #b7a57a;
-}
-
 .cardGroup {
   margin: 15px;
 }

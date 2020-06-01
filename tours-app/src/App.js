@@ -6,33 +6,32 @@ import "./style.css";
 import {
   Switch,
   NavLink,
-  BrowserRouter as Router, Route
-} from 'react-router-dom';
+  BrowserRouter as Router,
+  Route,
+} from "react-router-dom";
 import AboutUs from "./about-us";
 import { Nav } from "react-bootstrap";
-import Json from './Json.js';
-import Sightseeing from './components/Sightseeing.js';
+import Json from "./Json.js";
+import Sightseeing from "./components/Sightseeing.js";
 // import './indexStyle.css';
 // import './style.css';
 
 export class App extends Component {
-  
-  constructor(props){
+  constructor(props) {
     super(props);
     let variable = <div></div>;
     this.state = {
-      data: variable
-    }
+      data: variable,
+    };
     this.fetchData();
-
   }
 
   fetchData() {
-   
     fetch(Json)
-      .then(response => response.json())
-      .then(response => {this.setState({data: <Sightseeing events = {response}/>})})
-    
+      .then((response) => response.json())
+      .then((response) => {
+        this.setState({ data: <Sightseeing events={response} /> });
+      });
   }
 
   render() {
@@ -56,9 +55,7 @@ export class App extends Component {
           <Route path='/sightseeing' component={Sightseeing}>
             {this.state.data}
           </Route>
-         
         </Switch>
-        
       </Router>
     );
   }
