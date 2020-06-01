@@ -19,16 +19,23 @@ class Sightseeing extends Component {
 
 export default Sightseeing;
 
+// constructor(props){
+//   super(props);
+//   fetchData();
 
+// }
 
-    // constructor() {
-    //   super();
-    //   // empty states
-    //   this.state = {
-    //     sortOrder: 'default',
-    //     filter: 'default',
-    //   }
-    //   fetch(Json)
-    //     .then(response => response.json())
-    //     .then(data => <sightseeingCards event = {data} /> )
-    // }
+// fetchData() {
+//   let variable = fetch(Json)
+//     .then(response => response.json())
+//   this.state.data = variable;
+// }
+
+// render(){
+//   return(
+//   <HomePage />
+//   <Sightseeing events = {this.state.data} /> 
+//   {data}
+//   )
+// }
+// }
