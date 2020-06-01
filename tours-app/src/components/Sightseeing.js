@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './indexStyle.css';
-import './style.css';
-import SightseeingCards from './components/SightseeingCards';
+//import './indexStyle.css';
+//import './style.css';
+import SightseeingCards from './SightseeingCards';
 
 class Sightseeing extends Component {
   render() {

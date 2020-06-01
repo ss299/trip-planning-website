@@ -1,9 +1,15 @@
 import React, { Component } from 'react'; //import React Component
 import {
     Card, Button
+<<<<<<< HEAD
 } from 'reactstrap-bootstrap/Card';
 import './indexStyle.css';
 import './style.css';
+=======
+} from 'react-bootstrap/';
+//import './indexStyle.css';
+//import './style.css';
+>>>>>>> newTrip
 
 class SightseeingCards extends Component {
     render() {
