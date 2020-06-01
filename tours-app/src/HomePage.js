@@ -114,7 +114,7 @@ export class BestSightseeing extends Component {
                 <Card style={{ width: "18rem" }}>
                 <Card.Img variant='top' src="img/bali.jpg" />
                 <Card.Body>
-                <Link to='/Sightseeing.js'> 
+                <Link to='/sightseeing'> 
                     <Button variant='primary'>Best Sightseeing</Button>
                 </Link> 
                 </Card.Body>
