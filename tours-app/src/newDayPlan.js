@@ -3,6 +3,7 @@ import "./indexStyle.css";
 import "./style.css";
 import { Card, Button, Jumbotron, Container, CardGroup } from "react-bootstrap"; //import React Component
 import CreateCards from "./dayCards.js";
+import TaskList from "./taskList";
 
 export class NewDayPlan extends Component {
   constructor(props) {
@@ -35,11 +36,14 @@ export class NewDayPlan extends Component {
 
   render() {
     return (
-      <NewDayPlanForm
-        stateOfDay={this.state}
-        handleChange={this.handleChange}
-        finishedState={this.finishedState}
-      />
+      <div>
+        <NewDayPlanForm
+          stateOfDay={this.state}
+          handleChange={this.handleChange}
+          finishedState={this.finishedState}
+        />
+        <TaskList />
+      </div>
     );
   }
 }
