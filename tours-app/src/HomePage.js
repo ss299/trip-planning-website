@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./indexStyle.css";
 import "./style.css";
 import NewTrip, { ToggleForm } from "./newTrip.js";
-import BestSightseeing, { ToggleForm } from "./Sightseeing.js";
+//import BestSightseeing from "./Sightseeing.js";
 import plane from "./img/nils-nedel-ONpGBpns3cs-unsplash.jpg";
 import timePhoto from "./img/erik-odiin-jbQvJx2EWnU-unsplash.jpg";
 

@@ -53,7 +53,7 @@ export class App extends Component {
             <AboutUs />
           </Route>
 
-          <Route path='/sightseeing' component={BestSighseeing}>
+          <Route path='/sightseeing' component={Sightseeing}>
             {this.state.data}
           </Route>
          
