@@ -23,8 +23,10 @@ export class App extends Component {
 
   render(){
     return(
-    <HomePage />
-    <Sightseeing events = {this.state.data} /> 
+    <div>
+      <HomePage />
+      <Sightseeing events = {this.state.data} /> 
+    </div>
     );
   }
 }
