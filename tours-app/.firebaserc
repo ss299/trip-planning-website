@@ -1,5 +1,6 @@
 {
   "projects": {
-    "staging": "tourist-planner-info340"
+    "staging": "tourist-planner-info340",
+    "default": "tourist-planner-info340"
   }
 }

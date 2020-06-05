@@ -2,8 +2,14 @@ import React, { Component } from "react";
 import "./indexStyle.css";
 import "./style.css";
 import { Card, Button, Jumbotron, Container } from "react-bootstrap"; //import React Component
+import { Link } from "react-router-dom";
 
 class NewTrip extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { name: "" }; //work on this
+  }
+
   changeState = () => {
     let modalHidden = "modal modal-hidden";
     if (this.props.state == true) {
@@ -15,15 +21,17 @@ class NewTrip extends Component {
 
   close = () => {
     console.log("hi");
-    return "close_bar modal-hidden";
+    return this.props.updatingState();
   };
 
   render() {
     return (
       <div className={this.changeState()}>
         <div className='contact-form' id='blur'>
-          <div className={this.close()}>
-            <span onClick={this.close}>X</span>
+          <div>
+            <span className='pointer' onClick={this.close}>
+              X
+            </span>
           </div>
 
           <p className='alert alert-success d-none'>Creating Dashboard</p>
@@ -96,9 +104,9 @@ class NewTrip extends Component {
               <div className='invalid-tooltip'></div>
             </div>
 
-            <button className='newTripButton' onclick='saveNewTrip()'>
-              Lets Get Planning
-            </button>
+            <Link to='/newDayPlan'>
+              <button className='newTripButton'>Lets Get Planning</button>
+            </Link>
           </form>
         </div>
       </div>

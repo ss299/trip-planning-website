@@ -4,6 +4,10 @@ import "./style.css";
 import { Card, Button, Jumbotron, Container, CardGroup } from "react-bootstrap"; //import React Component
 import CreateCards from "./dayCards.js";
 import TaskList from "./taskList";
+import firebase from "firebase/app";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import "firebase/database";
+import "firebase/auth";
 
 export class NewDayPlan extends Component {
   constructor(props) {
@@ -15,7 +19,39 @@ export class NewDayPlan extends Component {
       transporation: "",
       notes: "",
       final: [],
+      message: "",
+      allLocation: [],
+      oldCards: [],
     };
+  }
+
+  componentDidMount() {
+    let messageRef = firebase.database().ref("message"); //here's how we get access to the message key
+    messageRef.on("value", (snapshot) => {
+      let value = snapshot.val();
+
+      console.log("value is now: ", value);
+      this.setState({ message: value });
+    });
+
+    let cardsRef = firebase.database().ref("cards");
+    cardsRef.on("value", (snapshot) => {
+      let value = snapshot.val();
+
+      let card = [];
+      if (value) {
+        let cardIds = Object.keys(value);
+
+        card = cardIds.map((cardId) => {
+          return { id: cardId, ...value[cardId] };
+        });
+      }
+      // console.log(tasks);
+
+      this.setState({ oldCards: [card] });
+      console.log("this is the state");
+      console.log(this.state);
+    });
   }
 
   handleChange = (name, value) => {
@@ -31,7 +67,16 @@ export class NewDayPlan extends Component {
     this.setState((prevState) => ({
       final: [...prevState.final, { name: this.state }],
     }));
+    firebase.database().ref("cards").push(this.state);
     console.log(this.state.final);
+  };
+
+  fillAllLocation = (location) => {
+    this.setState(() => {
+      return this.state.allLocation.push(location);
+    });
+    console.log("new State");
+    console.log(this.state);
   };
 
   render() {
@@ -41,6 +86,7 @@ export class NewDayPlan extends Component {
           stateOfDay={this.state}
           handleChange={this.handleChange}
           finishedState={this.finishedState}
+          fillAllLocation={this.fillAllLocation}
         />
         <TaskList />
       </div>
@@ -51,6 +97,7 @@ export class NewDayPlan extends Component {
 export class NewDayPlanForm extends Component {
   constructor(props) {
     super(props);
+    //in the options tags keeps track of everywhere we have to go for the day
     this.state = { location: [], showCard: [], finallocation: [] };
     this.counter = -1;
   }
@@ -63,12 +110,13 @@ export class NewDayPlanForm extends Component {
 
   handleClick = (event) => {
     event.preventDefault();
+
     this.setState(() => {
       let value = this.props.stateOfDay.visit;
-      console.log("value: " + value);
+      //console.log("value: " + value);
+      this.props.fillAllLocation(value);
       return this.state.location.push(value);
     });
-    console.log("tempArray: " + this.state.location);
   };
 
   //the final submit button is hit and cards render
@@ -98,11 +146,14 @@ export class NewDayPlanForm extends Component {
         { finalLoc: this.state.location },
       ],
     }));
+
     return final;
   };
 
   render() {
-    let newTask = this.state.showCard.map((card) => {
+    console.log("checking logs");
+    console.log(this.props.stateOfDay.oldCards);
+    let newTask = this.props.stateOfDay.oldCards.map((card) => {
       let newTour = (
         <div className='d-flex flex-wrap'>
           <Card
@@ -113,32 +164,21 @@ export class NewDayPlanForm extends Component {
           >
             <Card.Header>{"Day" + (card + 1)}</Card.Header>
             <Card.Body>
-              <Card.Title>
-                {"Budget for the Day $" +
-                  this.props.stateOfDay.final[card].name.budget}
-              </Card.Title>
+              <Card.Title>{"Budget for the Day $" + card.budget}</Card.Title>
 
-              <Card.Title>
-                {"Kid-Friendly: " +
-                  this.props.stateOfDay.final[card].name.friendly}
-              </Card.Title>
+              <Card.Title>{"Kid-Friendly: " + card.friendly}</Card.Title>
 
-              <Card.Title>
-                {"Transportation: " +
-                  this.props.stateOfDay.final[card].name.transporation}
-              </Card.Title>
+              <Card.Title>{"Transportation: " + card.transporation}</Card.Title>
 
               <Card.Title>{"Extra Notes: "}</Card.Title>
-              <Card.Text>
-                {this.props.stateOfDay.final[card].name.notes}
-              </Card.Text>
+              <Card.Text>{card.notes}</Card.Text>
 
               <Card.Title>{"Places to Visit: "}</Card.Title>
-              <Card.Text>
-                {this.state.finallocation[card].finalLoc.map((text) => {
+              {/* <Card.Text>
+                {card.allLocation.map((text) => {
                   return <p>{text}</p>;
                 })}
-              </Card.Text>
+              </Card.Text> */}
             </Card.Body>
           </Card>
         </div>

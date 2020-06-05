@@ -2,13 +2,18 @@ import React, { Component } from "react";
 import "./indexStyle.css";
 import "./style.css";
 import NewTrip, { ToggleForm } from "./newTrip.js";
-//import BestSightseeing from "./Sightseeing.js";
 import plane from "./img/nils-nedel-ONpGBpns3cs-unsplash.jpg";
-import timePhoto from "./img/erik-odiin-jbQvJx2EWnU-unsplash.jpg";
+import {
+  Switch,
+  NavLink,
+  BrowserRouter as Router,
+  Route,
+} from "react-router-dom";
 
 import { Card, Button, Jumbotron, Container } from "react-bootstrap"; //import React Component
 import { Link } from "react-router-dom";
 import hamburgerMenu from "./img/menu-icon.png";
+import HomePageMain from "./homePageMain.js";
 
 export class HomePage extends Component {
   constructor(props) {
@@ -17,8 +22,13 @@ export class HomePage extends Component {
   }
 
   updatingState = () => {
+    console.log("second");
     console.log(this.state);
-    return this.setState({ modalHidden: true });
+    if (this.state.modalHidden == false) {
+      return this.setState({ modalHidden: true });
+    } else {
+      return this.setState({ modalHidden: false });
+    }
   };
 
   render() {
@@ -29,7 +39,16 @@ export class HomePage extends Component {
         </div> */}
 
         <div>
-          <NewTrip state={this.state.modalHidden} />
+          <NewTrip
+            state={this.state.modalHidden}
+            updatingState={this.updatingState}
+          />
+        </div>
+        <div>
+          <HomePageMain
+            state={this.state.modalHidden}
+            updatingState={this.updatingState}
+          />
         </div>
       </div>
     );
@@ -44,6 +63,17 @@ export class HomePicture extends Component {
           <Container>
             <div>
               <h1>Where's Your Next Trip?</h1>
+            </div>
+            <div>
+              <Button
+                className='signOut'
+                variant='secondary'
+                size='lg'
+                onClick={this.props.handleSignOut}
+                active
+              >
+                SignOut
+              </Button>
             </div>
           </Container>
         </Jumbotron>
@@ -61,7 +91,7 @@ export class NavBar extends Component {
   render() {
     return (
       <div className='navBar'>
-        <HomePicture />
+        <HomePicture handleSignOut={this.props.handleSignOut} />
         <div className='hamburgerMenu'>
           <img className='resize' src={hamburgerMenu} alt='Menu icon' />
         </div>
@@ -69,17 +99,16 @@ export class NavBar extends Component {
         <nav>
           <ul>
             <li className='uni'>
-              <Link to='/home'>Home</Link>
+              <Link to='/'>Home</Link>
             </li>
             <li className='uni'>
               <Link to='/newDayPlan'>New Trip</Link>
             </li>
             <li className='uni'>
-              <Link to='/aboutUs'>About Us</Link>
-            </li>
-
-            <li className='uni'>
               <Link to='/sightseeing'>Sightseeing</Link>
+            </li>
+            <li className='uni'>
+              <Link to='/aboutUs'>About Us</Link>
             </li>
           </ul>
         </nav>
