@@ -1,5 +1,5 @@
 import React, { Component } from "react"; //import React Component
-import { Card, Button, Jumbotron, Container, CardGroup } from "react-bootstrap"; //import React Component
+import { Card, Button, Jumbotron, Container, CardGroup, CardDeck } from "react-bootstrap"; //import React Component
 import "../indexStyle.css";
 import "../style.css";
 
@@ -8,8 +8,9 @@ class SightseeingCards extends Component {
     let event = this.props.event;
 
     return (
-      <Card style={{ width: "20rem" }}>
-        <Card.Img variant='top' src='event.image' />
+      <CardDeck>
+      <Card style={{ width: "20rem", padding: '15px' }} className='text-center align-items-center' >
+        <Card.Img variant='top' src={event.image} />
         {/* card rank? */}
         <Card.Body>
           <Card.Title>
@@ -21,6 +22,7 @@ class SightseeingCards extends Component {
           </Button>
         </Card.Body>
       </Card>
+      </CardDeck>
     );
   }
 }

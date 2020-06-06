@@ -4,10 +4,11 @@ import "./indexStyle.css";
 import "./style.css";
 import App from "./App";
 import { BrowserRouter} from "react-router-dom";
+import Json from "./Json";
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <App tasks = {Json}/>
   </BrowserRouter>,
   document.getElementById("root")
 );
