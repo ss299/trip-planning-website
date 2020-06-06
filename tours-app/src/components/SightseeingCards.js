@@ -9,7 +9,7 @@ class SightseeingCards extends Component {
 
     return (
       <CardDeck>
-      <Card style={{ width: "20rem", padding: '15px' }} className='text-center align-items-center' >
+      <Card style={{ width: "20rem"}} className='text-center' >
         <Card.Img variant='top' src={event.image} />
         {/* card rank? */}
         <Card.Body>

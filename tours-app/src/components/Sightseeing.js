@@ -10,7 +10,7 @@ class Sightseeing extends Component {
       return <SightseeingCards event={event}/>;
     })
     return (
-      <div className="card-deck">
+      <div className="card-deck  justify-content-center">
         {renderedEvents}
       </div>
     );
