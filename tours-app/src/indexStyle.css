@@ -575,6 +575,12 @@ h3 {
     font-size: 0.9rem;
     font-weight: 400;
   }
+
+  .dropdownMenu{
+    float: center;
+    padding: .5rem;
+    left: -30px;
+} 
 }
 
 @media (max-width: 1281px) {
@@ -585,7 +591,18 @@ h3 {
   .timeline {
     background-color: #29434e;
   }
+  .dropdownMenu{
+    /* float: center; */
+    padding: .5rem;
+    left: -30px;
+} 
 }
 
 @media (min-width: 1400px) {
+  .dropdownMenu{
+    /* float: center; */
+    position: relative;
+    padding: .5rem;
+    left: -13rem; 
+} 
 }
