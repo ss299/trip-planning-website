@@ -8,7 +8,7 @@ class SightseeingCards extends Component {
     let event = this.props.event;
 
     return (
-      <CardDeck style={{width: "20rem", marginRight: '15px'}}>
+      <CardDeck style={{width: "20rem", margin: '15px'}}>
       <Card className='text-center' >
         <Card.Img variant='top' src={event.image} />
         {/* card rank? */}
