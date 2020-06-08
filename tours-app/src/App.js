@@ -28,6 +28,7 @@ export class App extends Component {
     this.state = {
       data: variable,
       user: null,
+      wrappingUpData: [],
     };
     this.fetchData();
   }
@@ -49,6 +50,8 @@ export class App extends Component {
       .then((response) => {
         this.setState({ data: <Sightseeing events={response} /> });
       });
+    console.log("checkings");
+    console.log(this.state.data);
   }
 
   componentDidMount() {
@@ -77,6 +80,10 @@ export class App extends Component {
 
   handleSignOut = () => {
     firebase.auth().signOut();
+  };
+
+  takeBack = () => {
+    console.log("hmmmmm");
   };
 
   render() {
@@ -111,11 +118,18 @@ export class App extends Component {
 
           <Switch>
             <Route exact path='/' component={HomePage}>
-              <HomePage />
+              <HomePage
+                fbuserkey={this.state.user.email.replace(/[^a-zA-Z0-9]/g, "")}
+                wrapUpPass={this.wrapUpPass}
+                takeBack={this.takeBack}
+              />
             </Route>
 
             <Route path='/newDayPlan' component={NewDayPlan}>
-              <NewDayPlan />
+              <NewDayPlan
+                fbuserkey={this.state.user.email.replace(/[^a-zA-Z0-9]/g, "")}
+                takeBack={this.takeBack}
+              />
             </Route>
 
             <Route path='/aboutUs' component={AboutUs}>

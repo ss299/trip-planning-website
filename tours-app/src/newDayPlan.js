@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import "./indexStyle.css";
 import "./style.css";
-import { Card, Button, Jumbotron, Container, CardGroup } from "react-bootstrap"; //import React Component
+import { Card, CardGroup, Carousel } from "react-bootstrap"; //import React Component
 import CreateCards from "./dayCards.js";
 import TaskList from "./taskList";
 import firebase from "firebase/app";
+import SaveTrip from "./saveNewTripButton";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import "firebase/database";
 import "firebase/auth";
+import SearchFilter from "./searchFilter";
+import slider from "./img/2ppt.jpg";
 
 export class NewDayPlan extends Component {
   constructor(props) {
@@ -18,11 +21,15 @@ export class NewDayPlan extends Component {
       friendly: "",
       transporation: "",
       notes: "",
-      final: [],
       message: "",
       allLocation: [],
       oldCards: [],
+      ids: [],
+      count: 0,
+      trackCards: [],
+      favoriteCard: [],
     };
+    this.counter = -1;
   }
 
   componentDidMount() {
@@ -30,11 +37,12 @@ export class NewDayPlan extends Component {
     messageRef.on("value", (snapshot) => {
       let value = snapshot.val();
 
-      console.log("value is now: ", value);
       this.setState({ message: value });
     });
 
-    let cardsRef = firebase.database().ref("cards");
+    let cardsRef = firebase
+      .database()
+      .ref(this.props.fbuserkey + "/newTripPlan");
     cardsRef.on("value", (snapshot) => {
       let value = snapshot.val();
 
@@ -46,11 +54,8 @@ export class NewDayPlan extends Component {
           return { id: cardId, ...value[cardId] };
         });
       }
-      // console.log(tasks);
 
-      this.setState({ oldCards: [card] });
-      console.log("this is the state");
-      console.log(this.state);
+      this.setState({ oldCards: card });
     });
   }
 
@@ -58,36 +63,181 @@ export class NewDayPlan extends Component {
     this.setState(() => {
       let pick = this.state;
       pick[name] = value;
-
-      console.log("I changed to:", this.state);
     });
   };
 
   finishedState = () => {
-    this.setState((prevState) => ({
-      final: [...prevState.final, { name: this.state }],
-    }));
-    firebase.database().ref("cards").push(this.state);
-    console.log(this.state.final);
+    let getNum = this.state.oldCards.length - 1;
+    let latestID = this.state.oldCards[getNum];
+
+    let value = [];
+    let cardsRef = firebase
+      .database()
+      .ref(this.props.fbuserkey + "/newTripPlan/" + latestID.id + "/allCards");
+    cardsRef.on("value", (snapshot) => {
+      value = snapshot.val();
+
+      let saveCount = 0;
+
+      if (value) {
+        if (value[0] === "stack") {
+          value[0] = {
+            visit: this.state.visit,
+            budget: this.state.budget,
+            friendly: this.state.friendly,
+            transporation: this.state.transporation,
+            notes: this.state.notes,
+            message: this.state.message,
+            allLocation: this.state.allLocation,
+            count: saveCount,
+          };
+        } else {
+          saveCount = value[value.length - 1].count;
+          saveCount = saveCount + 1;
+          value.push({
+            visit: this.state.visit,
+            budget: this.state.budget,
+            friendly: this.state.friendly,
+            transporation: this.state.transporation,
+            notes: this.state.notes,
+            message: this.state.message,
+            allLocation: this.state.allLocation,
+            count: saveCount,
+          });
+        }
+      }
+      this.setState({ allLocation: [] });
+    });
+
+    let cardRef = firebase
+      .database()
+      .ref(this.props.fbuserkey + "/newTripPlan/" + latestID.id + "/allCards");
+    cardRef.update(value);
+
+    //step 1: we want to save the value of cards as a variable
+    //step 2: we want to push new data to the variable
+    //step 3: save the new variable as cards
   };
 
   fillAllLocation = (location) => {
     this.setState(() => {
       return this.state.allLocation.push(location);
     });
-    console.log("new State");
-    console.log(this.state);
+  };
+
+  closeCard = (index) => {
+    let getNum = this.state.oldCards.length - 1;
+    let latestID = this.state.oldCards[getNum];
+    let value = [];
+    let removeVal;
+    let newUpdate = [];
+
+    let cardsRef = firebase
+      .database()
+      .ref(this.props.fbuserkey + "/newTripPlan/" + latestID.id + "/allCards");
+    cardsRef.on("value", (snapshot) => {
+      value = snapshot.val();
+    });
+
+    let cardRefs = firebase
+      .database()
+      .ref(
+        this.props.fbuserkey +
+          "/newTripPlan/" +
+          latestID.id +
+          "/allCards/" +
+          index
+      );
+    cardRefs.remove();
+
+    if (!value) {
+      value = ["stack"];
+      cardsRef.update(value);
+    }
+  };
+
+  favorite = (number) => {
+    let getNum = this.state.oldCards.length - 1;
+    let latestID = this.state.oldCards[getNum];
+
+    let value = [];
+    let cardsRef = firebase
+      .database()
+      .ref(this.props.fbuserkey + "/newTripPlan/" + latestID.id + "/favorite");
+    cardsRef.on("value", (snapshot) => {
+      value = snapshot.val();
+    });
+
+    this.state.oldCards[this.state.oldCards.length - 1].allCards.map((fav) => {
+      if (fav.count == number) {
+        value.push(fav);
+      }
+    });
+
+    let cardRef = firebase
+      .database()
+      .ref(this.props.fbuserkey + "/newTripPlan/" + latestID.id + "/favorite");
+    cardRef.update(value);
+  };
+
+  takeBack = () => {
+    this.props.takeBack();
   };
 
   render() {
+    let accessEarly = this.state.oldCards[this.state.oldCards.length - 1];
+
+    let favs = [];
+    let cardText;
+
+    let newTask = this.state.oldCards.map((cards) => {
+      if (accessEarly === cards && cards.allCards !== undefined) {
+        let renderFav = cards.favorite.map((fav) => {
+          if (fav !== "Favorite Days") {
+            if (fav.allLocation != undefined) {
+              cardText = fav.allLocation.map((text) => {
+                return <p>{text}</p>;
+              });
+            }
+            let makeSlide = (
+              <Carousel.Item>
+                <img
+                  className='d-block h-100 w-90'
+                  src={slider}
+                  alt='First slide'
+                />
+                <Carousel.Caption>
+                  <h3>{accessEarly.startDestination}</h3>
+                  <h3>{fav.budget}</h3>
+                  <h3>{cardText}</h3>
+                  <h3>{fav.notes}</h3>
+                </Carousel.Caption>
+              </Carousel.Item>
+            );
+            favs.push(makeSlide);
+          }
+        });
+      }
+    });
+
+    let lastSlide = favs.map((last) => {
+      return last;
+    });
     return (
       <div>
+        <SaveTrip takeBack={this.takeBack} stateOfDay={this.state} />
         <NewDayPlanForm
           stateOfDay={this.state}
           handleChange={this.handleChange}
           finishedState={this.finishedState}
           fillAllLocation={this.fillAllLocation}
+          closeCard={this.closeCard}
+          favorite={this.favorite}
         />
+        <h1>Days To Look Forward To</h1>
+        <div className='back'>
+          <Carousel>{lastSlide}</Carousel>
+        </div>
         <TaskList />
       </div>
     );
@@ -99,7 +249,7 @@ export class NewDayPlanForm extends Component {
     super(props);
     //in the options tags keeps track of everywhere we have to go for the day
     this.state = { location: [], showCard: [], finallocation: [] };
-    this.counter = -1;
+    this.counter = 0;
   }
 
   respondDayChange = (name, event) => {
@@ -113,7 +263,6 @@ export class NewDayPlanForm extends Component {
 
     this.setState(() => {
       let value = this.props.stateOfDay.visit;
-      //console.log("value: " + value);
       this.props.fillAllLocation(value);
       return this.state.location.push(value);
     });
@@ -122,7 +271,7 @@ export class NewDayPlanForm extends Component {
   //the final submit button is hit and cards render
   getDayInfo = (event) => {
     event.preventDefault();
-    this.counter++;
+
     this.setState(() => {
       return this.state.showCard.push(this.counter);
     });
@@ -130,13 +279,10 @@ export class NewDayPlanForm extends Component {
     this.props.finishedState();
     this.setFinalLocation();
     this.resetArray();
-    //console.log("save test" + this.props.stateOfDay.final.budget);
   };
 
   resetArray() {
     return this.setState({ location: [] });
-
-    console.log(this.state.location);
   }
 
   setFinalLocation = () => {
@@ -150,40 +296,95 @@ export class NewDayPlanForm extends Component {
     return final;
   };
 
+  closeCard = (counter) => {
+    return this.props.closeCard(counter);
+  };
+
+  favorite = (number) => {
+    return this.props.favorite(number);
+  };
+
   render() {
-    console.log("checking logs");
-    console.log(this.props.stateOfDay.oldCards);
-    let newTask = this.props.stateOfDay.oldCards.map((card) => {
-      let newTour = (
-        <div className='d-flex flex-wrap'>
-          <Card
-            className='tourCard'
-            id={card}
-            border='dark'
-            style={{ width: "18rem" }}
-          >
-            <Card.Header>{"Day" + (card + 1)}</Card.Header>
-            <Card.Body>
-              <Card.Title>{"Budget for the Day $" + card.budget}</Card.Title>
+    let cardText = "";
 
-              <Card.Title>{"Kid-Friendly: " + card.friendly}</Card.Title>
+    let accessEarly = this.props.stateOfDay.oldCards[
+      this.props.stateOfDay.oldCards.length - 1
+    ];
 
-              <Card.Title>{"Transportation: " + card.transporation}</Card.Title>
+    let newTrip = [];
+    this.counter = 0;
+    let newTask = this.props.stateOfDay.oldCards.map((cards) => {
+      if (
+        accessEarly === cards &&
+        cards.allCards !== undefined &&
+        cards.allCards[0] !== "stack"
+      ) {
+        let creatingCards = cards.allCards.map((card) => {
+          if (card.allLocation != undefined) {
+            cardText = card.allLocation.map((text) => {
+              return <p>{text}</p>;
+            });
+          } else {
+            cardText = "No Places Chosen to Visit";
+          }
+          this.counter++;
+          let newTour = (
+            <div className='d-flex flex-wrap'>
+              <Card
+                id={card.count}
+                className='tourCard'
+                border='dark'
+                style={{ width: "18rem" }}
+              >
+                <Card.Header>
+                  <span
+                    className='pointer'
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      this.closeCard(card.count);
+                    }}
+                  >
+                    X
+                  </span>
+                  {"Day " + this.counter}
+                </Card.Header>
+                <Card.Body>
+                  <Card.Title>
+                    {"Budget for the Day $" + card.budget}
+                  </Card.Title>
 
-              <Card.Title>{"Extra Notes: "}</Card.Title>
-              <Card.Text>{card.notes}</Card.Text>
+                  <Card.Title>{"Kid-Friendly: " + card.friendly}</Card.Title>
 
-              <Card.Title>{"Places to Visit: "}</Card.Title>
-              {/* <Card.Text>
-                {card.allLocation.map((text) => {
-                  return <p>{text}</p>;
-                })}
-              </Card.Text> */}
-            </Card.Body>
-          </Card>
-        </div>
-      );
-      return newTour;
+                  <Card.Title>
+                    {"Transportation: " + card.transporation}
+                  </Card.Title>
+
+                  <Card.Title>{"Extra Notes: "}</Card.Title>
+                  <Card.Text>{card.notes}</Card.Text>
+
+                  <Card.Title>{"Places to Visit: "}</Card.Title>
+
+                  <Card.Text>{cardText}</Card.Text>
+                </Card.Body>
+                <div
+                  className='hoverFav'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    this.favorite(card.count);
+                  }}
+                >
+                  Favorite
+                </div>
+              </Card>
+            </div>
+          );
+          newTrip.push(newTour);
+        });
+      } else {
+        console.log("some error");
+      }
     });
 
     let updatedTasks = this.state.location.map((location) => {
@@ -191,10 +392,14 @@ export class NewDayPlanForm extends Component {
       return here;
     });
 
+    let finalTrip = newTrip.map((trac) => {
+      return <div>{trac}</div>;
+    });
+
     return (
       <div>
         <div className='d-flex flex-wrap'>
-          <CardGroup>{newTask}</CardGroup>
+          <CardGroup>{finalTrip}</CardGroup>
         </div>
 
         <div className='newDayPlan'>
@@ -304,15 +509,14 @@ export class NewDayPlanForm extends Component {
                   rows='3'
                 ></textarea>
               </div>
-              <div>
-                <button
-                  onClick={this.getDayInfo}
-                  className='btn btn-primary newPlanForm'
-                  aria-label='New Beginning'
-                >
-                  Plan Day
-                </button>
-              </div>
+
+              <button
+                onClick={this.getDayInfo}
+                className='btn btn-primary newPlanForm'
+                aria-label='New Beginning'
+              >
+                Plan Day
+              </button>
             </form>
           </div>
         </div>

@@ -9,6 +9,10 @@ html {
   box-sizing: border-box;
 }
 
+#root {
+  background-color: white;
+}
+
 /* This is for the first half of the page */
 .introImage {
   height: 100%;
@@ -18,6 +22,12 @@ html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.newTripCard {
+  margin: 2rem;
+  display: inline-flex;
+  justify-content: center;
 }
 
 .introImageForNewTrip {
@@ -46,6 +56,23 @@ html {
   left: 0;
 }
 
+.slider-container {
+  width: 100%;
+  height: 100%;
+  position: fixed; /* add this code for position fixed */
+  top: 0px; /* set top and left 0 */
+  left: 0px;
+}
+.slider-item-div {
+  padding: 20px;
+  background-color: white;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+.carousel-style {
+  height: 100%;
+}
 /* For all the nav bars to follow */
 nav {
   display: block;
@@ -59,6 +86,10 @@ nav {
 li {
   display: inline;
   margin-right: 15%;
+}
+
+.saveTrip {
+  margin: 2rem;
 }
 
 a {
@@ -164,6 +195,38 @@ img {
 .pointer {
   cursor: pointer;
   float: right;
+}
+
+.pointer:hover {
+  color: red;
+}
+
+.back {
+  background-color: #0001;
+  margin: 2rem;
+}
+
+.fixedButton {
+  display: flex;
+  position: fixed;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+}
+
+.searchBar {
+  margin: 2rem;
+  background-color: wheat;
+}
+
+.hoverFav {
+  font-weight: bold;
+}
+
+.hoverFav:hover {
+  color: gold;
+  opacity: 1;
+  cursor: pointer;
 }
 
 .timeline {
@@ -510,6 +573,7 @@ h3 {
 
   #mainIntro {
     height: 30%;
+    color: black;
   }
 
   .videoDiv {

@@ -14,6 +14,8 @@ import { Card, Button, Jumbotron, Container } from "react-bootstrap"; //import R
 import { Link } from "react-router-dom";
 import hamburgerMenu from "./img/menu-icon.png";
 import HomePageMain from "./homePageMain.js";
+import "firebase/database";
+import "firebase/auth";
 
 export class HomePage extends Component {
   constructor(props) {
@@ -40,6 +42,7 @@ export class HomePage extends Component {
 
         <div>
           <NewTrip
+            fbuserkey={this.props.fbuserkey}
             state={this.state.modalHidden}
             updatingState={this.updatingState}
           />
@@ -48,6 +51,8 @@ export class HomePage extends Component {
           <HomePageMain
             state={this.state.modalHidden}
             updatingState={this.updatingState}
+            takeBack={this.props.takeBack}
+            fbuserkey={this.props.fbuserkey}
           />
         </div>
       </div>
@@ -58,7 +63,7 @@ export class HomePage extends Component {
 export class HomePicture extends Component {
   render() {
     return (
-      <div id='mainIntro'>
+      <div className='titleColor'>
         <Jumbotron fluid>
           <Container>
             <div>
@@ -72,7 +77,7 @@ export class HomePicture extends Component {
                 onClick={this.props.handleSignOut}
                 active
               >
-                SignOut
+                Sign Out
               </Button>
             </div>
           </Container>
@@ -102,7 +107,7 @@ export class NavBar extends Component {
               <Link to='/'>Home</Link>
             </li>
             <li className='uni'>
-              <Link to='/newDayPlan'>New Trip</Link>
+              <Link to='/newDayPlan'>Current Trip Plan</Link>
             </li>
             <li className='uni'>
               <Link to='/sightseeing'>Sightseeing</Link>
