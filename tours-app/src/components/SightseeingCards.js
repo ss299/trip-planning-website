@@ -7,6 +7,8 @@ class SightseeingCards extends Component {
   render() {
     let event = this.props.event;
 
+    console.log(event);
+
     return (
       <CardDeck style={{width: "20rem", margin: '15px'}}>
       <Card className='text-center' >
