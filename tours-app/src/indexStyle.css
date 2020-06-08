@@ -105,7 +105,7 @@ ul {
 
 .buttonFilters {
   display: inline-flex;
-  margin: .5rem;
+  margin: 0.5rem;
   margin-left: 15px;
 }
 
@@ -184,6 +184,7 @@ img {
   font-size: 80px;
   border: 10px solid #f1f1f1;
   position: absolute; /* Stay fixed */
+
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -464,7 +465,7 @@ h3 {
 }
 
 .buttonSpan {
-  display: inline
+  display: inline;
 }
 
 .fa-check {
@@ -570,6 +571,10 @@ h3 {
     display: none;
   }
 
+  .bg-text {
+    display: none;
+  }
+
   .hamburgerMenu {
     display: flex;
     justify-content: left;
@@ -630,7 +635,7 @@ h3 {
 
   .buttonFilters {
     display: inline-flex;
-    margin: .5rem;
+    margin: 0.5rem;
     /* text-align: center; */
   }
 }
@@ -681,11 +686,15 @@ h3 {
 
   .buttonFilters {
     display: inline-flex;
-    margin: .5rem;
+    margin: 0.5rem;
     /* text-align: center; */
   }
 }
-
+@media (max-width: 1096px) {
+  .bg-text {
+    display: none;
+  }
+}
 @media (max-width: 1281px) {
   .videoDiv {
     width: 100%;
@@ -696,7 +705,7 @@ h3 {
   }
   .buttonFilters {
     display: inline-flex;
-    margin: .5rem;
+    margin: 0.5rem;
     /* text-align: center; */
   }
 }
@@ -704,7 +713,7 @@ h3 {
 @media (min-width: 1400px) {
   .buttonFilters {
     display: inline-flex;
-    margin: .5rem;
+    margin: 0.5rem;
     /* text-align: center; */
   }
 }

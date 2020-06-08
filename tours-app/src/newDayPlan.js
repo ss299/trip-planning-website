@@ -92,6 +92,13 @@ export class NewDayPlan extends Component {
             count: saveCount,
           };
         } else {
+          let makeArr = value;
+          if (value)
+            if (!Array.isArray(value)) {
+              value = [makeArr];
+            }
+          console.log(value);
+
           saveCount = value[value.length - 1].count;
           saveCount = saveCount + 1;
           value.push({
@@ -236,6 +243,7 @@ export class NewDayPlan extends Component {
         />
 
         <h1>Days To Look Forward To</h1>
+        <p>Favorite card days will populate over here</p>
         <div className='back'>
           <Carousel>{lastSlide}</Carousel>
         </div>
@@ -320,7 +328,11 @@ export class NewDayPlanForm extends Component {
         cards.allCards !== undefined &&
         cards.allCards[0] !== "stack"
       ) {
-        let creatingCards = cards.allCards.map((card) => {
+        let makeArr = cards.allCards;
+        if (!Array.isArray(makeArr)) {
+          makeArr = [cards.allCards];
+        }
+        let creatingCards = makeArr.map((card) => {
           if (card.allLocation != undefined) {
             cardText = card.allLocation.map((text) => {
               return <p>{text}</p>;
