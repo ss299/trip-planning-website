@@ -12,25 +12,22 @@ import {
 } from "react-router-dom";
 import AboutUs from "./about-us";
 import { Button } from "react-bootstrap";
-import Json from "./Json.js";
+import { Nav } from "react-bootstrap";
 import Sightseeing from "./components/Sightseeing.js";
 import firebase from "firebase/app";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import video1 from "./img/videoLogIn.mp4";
 
-// import './indexStyle.css';
-// import './style.css';
-
 export class App extends Component {
   constructor(props) {
     super(props);
+
     let variable = <div></div>;
     this.state = {
       data: variable,
       user: null,
       wrappingUpData: [],
     };
-    this.fetchData();
   }
 
   //Configure FirebaseUI (inside the component, public class field)
@@ -43,16 +40,6 @@ export class App extends Component {
     //for external sign-in methods, use popup instead of redirect
     signInFlow: "popup",
   };
-
-  fetchData() {
-    fetch(Json)
-      .then((response) => response.json())
-      .then((response) => {
-        this.setState({ data: <Sightseeing events={response} /> });
-      });
-    console.log("checkings");
-    console.log(this.state.data);
-  }
 
   componentDidMount() {
     //when I signed in or signed out
@@ -87,6 +74,7 @@ export class App extends Component {
   };
 
   render() {
+    let tasks = this.props.tasks;
     let content = null;
     if (!this.state.user) {
       //signed out
@@ -137,7 +125,7 @@ export class App extends Component {
             </Route>
 
             <Route path='/sightseeing' component={Sightseeing}>
-              {this.state.data}
+              <Sightseeing events={tasks} />
             </Route>
           </Switch>
         </Router>

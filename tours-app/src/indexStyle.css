@@ -103,6 +103,16 @@ ul {
   text-align: center;
 }
 
+.buttonFilters {
+  display: inline-flex;
+  margin: .5rem;
+  margin-left: 15px;
+}
+
+/* .buttonFilters, .card-deck {
+  align-items: flex-start;
+} */
+
 .cardGroup {
   margin: 15px;
 }
@@ -453,6 +463,10 @@ h3 {
   color: white;
 }
 
+.buttonSpan {
+  display: inline
+}
+
 .fa-check {
   float: right;
   padding-right: 1rem;
@@ -613,6 +627,12 @@ h3 {
   .subHead {
     display: none;
   }
+
+  .buttonFilters {
+    display: inline-flex;
+    margin: .5rem;
+    /* text-align: center; */
+  }
 }
 
 @media (max-width: 768px) {
@@ -658,6 +678,12 @@ h3 {
     font-size: 0.9rem;
     font-weight: 400;
   }
+
+  .buttonFilters {
+    display: inline-flex;
+    margin: .5rem;
+    /* text-align: center; */
+  }
 }
 
 @media (max-width: 1281px) {
@@ -668,7 +694,17 @@ h3 {
   .timeline {
     background-color: #29434e;
   }
+  .buttonFilters {
+    display: inline-flex;
+    margin: .5rem;
+    /* text-align: center; */
+  }
 }
 
 @media (min-width: 1400px) {
+  .buttonFilters {
+    display: inline-flex;
+    margin: .5rem;
+    /* text-align: center; */
+  }
 }

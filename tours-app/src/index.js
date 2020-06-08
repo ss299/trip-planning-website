@@ -6,6 +6,10 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
+import Json from "./Json";
+import TodoList from "./TodoList";
+
+var destination = document.querySelector("#container");
 
 var firebaseConfig = {
   apiKey: "AIzaSyCS0nEMtwULe0crqavc5OieL-GuQYeIWaQ",
@@ -21,7 +25,7 @@ firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <App tasks={Json} />
   </BrowserRouter>,
   document.getElementById("root")
 );

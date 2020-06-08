@@ -3,7 +3,7 @@ import "./indexStyle.css";
 import "./style.css";
 import { Card, CardGroup, Carousel } from "react-bootstrap"; //import React Component
 import CreateCards from "./dayCards.js";
-import TaskList from "./taskList";
+import TodoList from "./TodoList";
 import firebase from "firebase/app";
 import SaveTrip from "./saveNewTripButton";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
@@ -234,11 +234,12 @@ export class NewDayPlan extends Component {
           closeCard={this.closeCard}
           favorite={this.favorite}
         />
+
         <h1>Days To Look Forward To</h1>
         <div className='back'>
           <Carousel>{lastSlide}</Carousel>
         </div>
-        <TaskList />
+        <TodoList />
       </div>
     );
   }
