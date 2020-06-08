@@ -17,6 +17,23 @@ class TodoList extends Component {
     this.props.delete(key);
   }
 
+  render() {
+    return (
+      <div className='todoListMain'>
+        <div className='header'>
+          <form onSubmit={this.addItem}>
+            <input
+              ref={(a) => (this._inputElement = a)}
+              placeholder='enter task'
+            ></input>
+            <button type='submit'>add</button>
+          </form>
+        </div>
+        <TodoItems entries={this.state.items} delete={this.deleteItem} />
+      </div>
+    );
+  }
+
   addItem(e) {
     if (this._inputElement.value !== "") {
       var newItem = {
@@ -54,23 +71,6 @@ class TodoList extends Component {
     this.setState({
       items: filteredItems,
     });
-  }
-
-  render() {
-    return (
-      <div className='todoListMain'>
-        <div className='header'>
-          <form onSubmit={this.addItem}>
-            <input
-              ref={(a) => (this._inputElement = a)}
-              placeholder='enter task'
-            ></input>
-            <button type='submit'>add</button>
-          </form>
-        </div>
-        <TodoItems entries={this.state.items} delete={this.deleteItem} />
-      </div>
-    );
   }
 }
 
