@@ -72,6 +72,11 @@ ul {
   text-align: center;
 }
 
+.dropdownMenu {
+  margin: .5rem;
+  left: 1rem;
+}
+
 .cardGroup {
   margin: 15px;
 }
@@ -534,6 +539,11 @@ h3 {
   .subHead {
     display: none;
   }
+
+   .dropdownMenu{
+    padding: .5rem;
+    left: -1rem;
+  }  
 }
 
 @media (max-width: 768px) {
@@ -580,11 +590,10 @@ h3 {
     font-weight: 400;
   }
 
-  .dropdownMenu{
-    float: center;
+   .dropdownMenu{
     padding: .5rem;
-    left: -30px;
-} 
+    left: -5rem;
+  }  
 }
 
 @media (max-width: 1281px) {
@@ -595,18 +604,16 @@ h3 {
   .timeline {
     background-color: #29434e;
   }
-  .dropdownMenu{
-    /* float: center; */
+  /* .dropdownMenu{
     padding: .5rem;
-    left: -30px;
-} 
+    left: -4.5rem;
+  }  */
 }
 
 @media (min-width: 1400px) {
-  .dropdownMenu{
-    /* float: center; */
+  /* .dropdownMenu{
     position: relative;
     padding: .5rem;
     left: -13rem; 
-} 
+  }  */
 }
