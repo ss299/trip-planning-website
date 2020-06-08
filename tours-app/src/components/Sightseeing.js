@@ -51,10 +51,10 @@ class Sightseeing extends Component {
 
     return (
       <div>
-        <span className='buttonSpan'>
+        <div className='buttonFilters'>
           {<SortBy callbackFunction={this.updateState.bind(this)} /> }
           {<DropdownMenu callbackFunction={this.updateState.bind(this)} /> }
-        </span>
+        </div>
         <div className="card-deck  justify-content-center">
           {renderedEvents}
         </div>

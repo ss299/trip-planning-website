@@ -72,10 +72,15 @@ ul {
   text-align: center;
 }
 
-.dropdownMenu {
+.buttonFilters {
+  display: inline-flex;
   margin: .5rem;
-  left: 1rem;
+  /* text-align: center; */
 }
+
+/* .buttonFilters, .card-deck {
+  align-items: flex-start;
+} */
 
 .cardGroup {
   margin: 15px;
@@ -540,10 +545,11 @@ h3 {
     display: none;
   }
 
-   .dropdownMenu{
-    padding: .5rem;
-    left: -1rem;
-  }  
+  .buttonFilters {
+    display: inline-flex;
+    margin: .5rem;
+    /* text-align: center; */
+  }
 }
 
 @media (max-width: 768px) {
@@ -590,10 +596,11 @@ h3 {
     font-weight: 400;
   }
 
-   .dropdownMenu{
-    padding: .5rem;
-    left: -5rem;
-  }  
+  .buttonFilters {
+    display: inline-flex;
+    margin: .5rem;
+    /* text-align: center; */
+  }
 }
 
 @media (max-width: 1281px) {
@@ -604,16 +611,17 @@ h3 {
   .timeline {
     background-color: #29434e;
   }
-  /* .dropdownMenu{
-    padding: .5rem;
-    left: -4.5rem;
-  }  */
+  .buttonFilters {
+    display: inline-flex;
+    margin: .5rem;
+    /* text-align: center; */
+  }
 }
 
 @media (min-width: 1400px) {
-  /* .dropdownMenu{
-    position: relative;
-    padding: .5rem;
-    left: -13rem; 
-  }  */
+  .buttonFilters {
+    display: inline-flex;
+    margin: .5rem;
+    /* text-align: center; */
+  }
 }
