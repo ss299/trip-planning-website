@@ -14,7 +14,7 @@ class SortBy extends Component {
     render() {
         return (
             <div className='App container'>
-                <DropdownButton onSelect={this.sortChange} id='dropdown-basic-button' title='Sort By: '>
+                <DropdownButton className='sortButton' onSelect={this.sortChange} id='dropdown-basic-button' title='Sort By: '>
                     <Dropdown.Item eventKey='rank'>Rank</Dropdown.Item>
                     <Dropdown.Item eventKey='price'>Price (Low to High)</Dropdown.Item>
                 </DropdownButton>
