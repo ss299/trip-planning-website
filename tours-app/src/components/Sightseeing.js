@@ -51,15 +51,14 @@ class Sightseeing extends Component {
 
     return (
       <div>
-        <div className='buttonFilters'>
-          {<SortBy callbackFunction={this.updateState.bind(this)} /> }
-          {<DropdownMenu callbackFunction={this.updateState.bind(this)} /> }
-        </div>
+                  <div className='buttonFilters'>
+            {<SortBy callbackFunction={this.updateState.bind(this)} /> }
+            {<DropdownMenu callbackFunction={this.updateState.bind(this)} /> }
+          </div>
         <div className="card-deck  justify-content-center">
           {renderedEvents}
         </div>
       </div>
-      
     );
   }
 }
@@ -67,4 +66,3 @@ class Sightseeing extends Component {
 
 
 export default Sightseeing;
-

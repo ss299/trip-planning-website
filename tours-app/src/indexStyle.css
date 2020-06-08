@@ -75,7 +75,7 @@ ul {
 .buttonFilters {
   display: inline-flex;
   margin: .5rem;
-  /* text-align: center; */
+  margin-left: 15px;
 }
 
 /* .buttonFilters, .card-deck {
