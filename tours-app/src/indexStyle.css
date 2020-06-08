@@ -371,6 +371,10 @@ h3 {
   color: white;
 }
 
+.buttonSpan {
+  display: inline
+}
+
 .fa-check {
   float: right;
   padding-right: 1rem;

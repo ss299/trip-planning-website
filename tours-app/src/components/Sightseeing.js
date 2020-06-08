@@ -20,19 +20,11 @@ class Sightseeing extends Component {
     let renderedEvents = '';
     if (this.state.sort === 'rank') {
       let sortedByRank = events.sort((a,b) => a.rank - b.rank);
-      sortedEvents = sortedByRank.map((event) => {
-        return <SightseeingCards event={event}/>;
-      });
+      sortedEvents = sortedByRank;
     } else if (this.state.sort === 'price') {
       let sortedByPrice = events.sort((a,b) => a.avgPrice - b.avgPrice);
-      console.log(sortedByPrice);
-      sortedEvents = sortedByPrice.map((event) => {
-        console.log(event);
-        return <SightseeingCards event={event}/>;
-      });
+      sortedEvents = sortedByPrice;
     }
-      console.log(this.state);
-      console.log(sortedEvents);
     
     if(sortedEvents !== '') {
       renderedEvents = sortedEvents.map((event) => {
@@ -55,11 +47,14 @@ class Sightseeing extends Component {
         }
       })
     }
-    
+
+
     return (
       <div>
-        {<SortBy callbackFunction={this.updateState.bind(this)} /> }
-        {<DropdownMenu callbackFunction={this.updateState.bind(this)} /> }
+        <span className='buttonSpan'>
+          {<SortBy callbackFunction={this.updateState.bind(this)} /> }
+          {<DropdownMenu callbackFunction={this.updateState.bind(this)} /> }
+        </span>
         <div className="card-deck  justify-content-center">
           {renderedEvents}
         </div>
